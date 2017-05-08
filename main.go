@@ -5,6 +5,8 @@ import (
 	"github.com/chrislonng/starx/component"
 	"github.com/chrislonng/starx/serialize/json"
 	"github.com/chrislonng/starx/session"
+	"net/http"
+	"github.com/chrislonng/starx/log"
 )
 
 type Room struct {
@@ -45,5 +47,9 @@ func main() {
 
 	starx.SetServerID("demo-server-1")
 	starx.SetSerializer(json.NewJsonSerializer())
+
+	log.SetLevel(log.LevelDebug)
+
+	starx.SetCheckOriginFunc(func(_ *http.Request) bool { return true })
 	starx.Run()
 }

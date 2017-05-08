@@ -29,6 +29,7 @@
         },
         methods: {
             sendMessage: function () {
+                console.log(this.inputMessage);
                 starx.notify('Room.Message', {name: this.nickname, content: this.inputMessage});
                 this.inputMessage = '';
             }
@@ -40,13 +41,15 @@
     };
 
     var join = function (data) {
-        if(data.code == 0) {
+        console.log(data);
+        if(data.code === 0) {
             v.messages.push({name:'system', content:data.result});
             starx.on('onMessage', onMessage)
         }
     };
 
     starx.init({host: '127.0.0.1', port: 3250}, function () {
+        console.log("initialized")
         starx.request("Room.Join", {}, join);
     })
 </script>
